@@ -69,8 +69,11 @@ public class TerminalToolbarViewPager {
                     if (session != null) {
                         if (session.isRunning()) {
                             String textToSend = editText.getText().toString();
-                            if (textToSend.length() == 0) textToSend = "\r";
-                            session.write(textToSend);
+                            if (textToSend.length() == 0) {
+                                session.write("\r");
+                            } else {
+                                session.getEmulator().paste(textToSend);
+                            }
                         } else {
                             mActivity.getTermuxTerminalSessionClient().removeFinishedSession(session);
                         }
